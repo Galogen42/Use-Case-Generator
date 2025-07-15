@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "use-case-generator"
+version = "0.1.0"
+description = "Use Case Diagram Generator backend"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "*"
+uvicorn = {extras = ["standard"], version="*"}
+openai = "*"
+python-dotenv = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
