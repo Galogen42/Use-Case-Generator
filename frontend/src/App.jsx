@@ -1,11 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import './App.css';
 
+// Main React component for the UI
 function App() {
+  // Text entered by the user
   const [description, setDescription] = useState('');
+  // Reference to the diagrams.net iframe
   const iframeRef = useRef(null);
+  // Hold generated XML so it can be downloaded later
   const xmlRef = useRef('');
 
+  // Send the description to the backend and load the resulting diagram
   const generate = async () => {
     if (!description.trim()) return;
     const res = await fetch('/generate-diagram', {
@@ -18,6 +23,7 @@ function App() {
     iframeRef.current?.contentWindow.postMessage({ action: 'load', xml: data.xml }, '*');
   };
 
+  // Download the generated diagram as XML
   const downloadXml = () => {
     const blob = new Blob([xmlRef.current], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
@@ -28,10 +34,12 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
+  // Request a PNG export from the iframe
   const exportPng = () => {
     iframeRef.current?.contentWindow.postMessage({ action: 'export', format: 'png' }, '*');
   };
 
+  // Handle messages from the diagrams.net iframe
   useEffect(() => {
     const handler = (event) => {
       if (event.data?.event === 'export') {

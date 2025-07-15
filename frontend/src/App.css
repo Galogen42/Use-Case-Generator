@@ -1,3 +1,4 @@
+/* Page styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
@@ -5,6 +6,7 @@ body {
   padding: 0;
 }
 
+/* Container for the entire app */
 .container {
   max-width: 800px;
   margin: 2rem auto;
@@ -18,6 +20,7 @@ h1 {
   margin-top: 0;
 }
 
+/* Textarea for the description */
 .description-input {
   width: 100%;
   padding: 0.5rem;
@@ -25,6 +28,7 @@ h1 {
   resize: vertical;
 }
 
+/* Layout for the buttons */
 .buttons {
   margin-top: 0.75rem;
   display: flex;
@@ -43,6 +47,7 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Iframe containing the diagrams.net editor */
 .diagram-frame {
   width: 100%;
   height: 500px;

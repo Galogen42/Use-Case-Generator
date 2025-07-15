@@ -1,20 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import react from '@vitejs/plugin-react';
 
-
-export default defineConfig({
+// Vite configuration for the React frontend.
+// The proxy allows the dev server to forward API requests to the backend.
 export default defineConfig({
   plugins: [react()],
-  plugins: [react()],
   server: {
-  server: {
-    port: 5173,
     port: 5173,
     proxy: {
       '/generate-diagram': 'http://localhost:8000',
     },
   },
-  },
-});
 });
