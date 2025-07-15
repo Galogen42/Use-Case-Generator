@@ -47,3 +47,28 @@ Open the frontend in your browser, type your use-case description and press
 
 The application uses React and Vite. Diagrams are rendered inside an iframe
 via the diagrams.net embed script.
+
+## Running on Windows with VS Code
+
+1. [Install Node.js](https://nodejs.org/) (which includes `npm`). During the
+   setup ensure that the option to add Node to your `PATH` is enabled.
+2. Restart VS Code after installation so the terminal can find the `npm` command.
+3. Open the project folder in VS Code and launch a new terminal
+   (``Ctrl+` `` by default).
+4. Verify the tools are available:
+
+   ```powershell
+   node --version
+   npm --version
+   ```
+
+5. Follow the **Backend setup** steps above using PowerShell.
+6. For the frontend:
+
+   ```powershell
+   cd frontend
+   npm install     # installs dependencies
+   npm run dev     # starts the Vite dev server
+   ```
+
+   The application will open at `http://localhost:5173`.
