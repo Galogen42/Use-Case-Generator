@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -7,6 +7,7 @@ function App() {
   const xmlRef = useRef('');
 
   const generate = async () => {
+    if (!description.trim()) return;
     const res = await fetch('/generate-diagram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,31 +32,38 @@ function App() {
     iframeRef.current?.contentWindow.postMessage({ action: 'export', format: 'png' }, '*');
   };
 
-  window.addEventListener('message', (event) => {
-    if (event.data?.event === 'export') {
-      const a = document.createElement('a');
-      a.href = event.data.dataUrl;
-      a.download = 'usecase-diagram.png';
-      a.click();
-    }
-  });
+  useEffect(() => {
+    const handler = (event) => {
+      if (event.data?.event === 'export') {
+        const a = document.createElement('a');
+        a.href = event.data.dataUrl;
+        a.download = 'usecase-diagram.png';
+        a.click();
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  }, []);
 
   return (
-    <div>
+    <div className="container">
+      <h1>Use Case Diagram Generator</h1>
       <textarea
+        className="description-input"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Describe your use cases"
         rows={4}
-        style={{ width: '100%' }}
       />
-      <button onClick={generate}>Generate</button>
-      <button onClick={downloadXml}>Download XML</button>
-      <button onClick={exportPng}>Download PNG</button>
+      <div className="buttons">
+        <button onClick={generate}>Generate</button>
+        <button onClick={downloadXml}>Download XML</button>
+        <button onClick={exportPng}>Download PNG</button>
+      </div>
       <iframe
         ref={iframeRef}
+        className="diagram-frame"
         title="diagram"
-        style={{ width: '100%', height: '500px', border: '1px solid #ccc', marginTop: '1rem' }}
         src="https://embed.diagrams.net/?embed=1&ui=min&proto=json"
       />
     </div>
