@@ -47,4 +47,3 @@ Open the frontend in your browser, type your use-case description and press
 
 The application uses React and Vite. Diagrams are rendered inside an iframe
 via the diagrams.net embed script.
-
